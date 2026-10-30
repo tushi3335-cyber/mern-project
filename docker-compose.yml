@@ -1,0 +1,32 @@
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    networks:
+      - mern
+
+  backend:
+    build: ./backend
+    ports:
+      - "5050:5050"
+    depends_on:
+      - db
+    networks:
+      - mern
+
+  db:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - mern
+  
+networks:
+  mern:
+volumes:
+  mongo-data:
